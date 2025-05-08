@@ -1,0 +1,54 @@
+# Platform-specific build integration
+
+# Detect platform
+UNAME_S := $(shell uname -s)
+UNAME_M := $(shell uname -m)
+
+# Platform-specific flags (will be populated by platform configs)
+PLATFORM_CFLAGS :=
+PLATFORM_LIBS :=
+PLATFORM_DEFINES :=
+
+# Include platform-specific configurations
+-include freebsd-config.mk
+-include macos-config.mk
+-include rpi-config.mk
+-include android-config.mk
+
+# Apply platform detection to main build
+CFLAGS += $(PLATFORM_CFLAGS) $(PLATFORM_DEFINES)
+LIBS += $(PLATFORM_LIBS)
+
+# Platform auto-detection targets
+.PHONY: platform-detect platform-info
+
+platform-detect:
+	@echo "Detecting platform..."
+	@echo "System: $(UNAME_S)"
+	@echo "Architecture: $(UNAME_M)"
+ifeq ($(UNAME_S),Darwin)
+	@echo "Detected macOS"
+	@echo "Apple Silicon: $(IS_APPLE_SILICON)"
+	@make macos-test
+else ifeq ($(UNAME_S),FreeBSD)
+	@echo "Detected FreeBSD"
+	@make freebsd-test
+else ifeq ($(UNAME_S),Linux)
+	@if grep -q "Raspberry Pi" /proc/cpuinfo; then \
+		echo "Detected Raspberry Pi"; \
+		make rpi-benchmark; \
+	else \
+		echo "Detected Linux"; \
+		make test; \
+	fi
+else
+	@echo "Unknown platform: $(UNAME_S)"
+	@echo "Using generic configuration"
+	@make test
+endif
+
+platform-info:
+	@echo "Platform-specific flags:"
+	@echo "CFLAGS: $(PLATFORM_CFLAGS)"
+	@echo "LIBS: $(PLATFORM_LIBS)"
+	@echo "DEFINES: $(PLATFORM_DEFINES)"
