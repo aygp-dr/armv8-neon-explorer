@@ -1,0 +1,116 @@
+#+TITLE: ARM v8 NEON Explorer
+#+AUTHOR: Aidan Pace (@aygp-dr)
+#+EMAIL: apace@defrecord.com
+#+DESCRIPTION: A Socratic exploration of ARM v8 SIMD using NEON instructions
+#+STARTUP: overview
+#+OPTIONS: toc:3 num:2 ^:{}
+
+* ARM v8 NEON Explorer
+
+A comprehensive exploration of ARM NEON SIMD programming techniques for ARMv8-A (AArch64) architecture, with practical examples and performance comparisons.
+
+** Overview
+
+This project provides a hands-on approach to understanding and utilizing SIMD (Single Instruction, Multiple Data) operations through ARM's NEON technology. Built specifically for ARMv8 architecture (aarch64), it demonstrates how to leverage SIMD instructions to achieve significant performance improvements across various algorithms.
+
+** Features
+
+- Core NEON SIMD operations with performance benchmarks
+- Detailed examples demonstrating real-world use cases
+- Automatic platform and feature detection
+- Comprehensive image processing implementations
+- Side-by-side comparisons of scalar vs. SIMD approaches
+
+** Requirements
+
+- ARMv8-A architecture with NEON support (aarch64)
+- GCC or Clang compiler with ARM NEON support
+- Linux-based OS (preferably Debian/Ubuntu or Raspberry Pi OS)
+
+** Installation
+
+Clone the repository and run the prerequisite script to ensure all dependencies are installed:
+
+#+BEGIN_SRC shell
+git clone https://github.com/username/armv8-neon-explorer.git
+cd armv8-neon-explorer
+chmod +x prerequisites.sh
+./prerequisites.sh
+#+END_SRC
+
+** Building
+
+Use the provided Makefile to build the project:
+
+#+BEGIN_SRC shell
+make all        # Build everything
+make examples   # Build only the examples
+make clean      # Clean build artifacts
+#+END_SRC
+
+** Examples
+
+The project includes several example programs demonstrating NEON optimizations:
+
+*** Vector Operations
+- Vector addition (~vector_add_example~)
+- Dot product calculation (~dot_product_example~)
+
+*** Image Processing
+- RGB to grayscale conversion (~rgb_to_gray~)
+- Box blur filter (~box_blur~)
+- Sobel edge detection (~sobel_edge~)
+- Histogram calculation (~histogram~)
+
+To run an example:
+
+#+BEGIN_SRC shell
+./bin/vector_add_example
+./bin/rgb_to_gray
+#+END_SRC
+
+Some examples accept parameters for image dimensions:
+
+#+BEGIN_SRC shell
+./bin/box_blur 1024 768  # Process a 1024x768 image
+#+END_SRC
+
+** Project Structure
+
+- ~/include~ - Header files and utilities
+- ~/src~ - Core implementation of SIMD operations
+- ~/examples~ - Example programs demonstrating NEON usage
+- ~/tests~ - Test suite for validating implementations
+- ~/docs~ - Additional documentation and references
+
+** Documentation
+
+The project uses a literate programming approach with Org mode files:
+
+- ~setup.org~ - Project setup and core library implementation
+- ~image-processing.org~ - Image processing algorithms and examples
+
+Each example includes:
+- Scalar (non-SIMD) implementation
+- NEON SIMD optimized version
+- Performance comparison
+- Key insights into the NEON operations used
+
+** Performance
+
+Performance improvements vary by algorithm, but typically range from 2x to 10x speedup compared to scalar implementations. Each example outputs detailed performance metrics:
+
+#+BEGIN_EXAMPLE
+=== Vector Addition (Float) Performance Comparison ===
+SIMD            :     2134 us total,     20 calls,    106.70 us/call
+Scalar          :    10256 us total,     20 calls,    512.80 us/call
+Speedup: 4.80x
+#+END_EXAMPLE
+
+** License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+** Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
