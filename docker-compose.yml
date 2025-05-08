@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  arm-simd-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+  
+  arm64-emulation:
+    build:
+      context: .
+      dockerfile: Dockerfile.qemu
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    command: /bin/bash
+    tty: true
+    stdin_open: true

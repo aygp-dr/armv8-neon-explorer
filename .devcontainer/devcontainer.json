@@ -1,0 +1,20 @@
+{
+    "name": "ARM v8 SIMD Development",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "arm-simd-dev",
+    "workspaceFolder": "/workspace",
+    "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "C_Cpp.default.includePath": [
+            "${workspaceFolder}/include",
+            "${workspaceFolder}/src"
+        ]
+    },
+    "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "streetsidesoftware.code-spell-checker"
+    ],
+    "remoteUser": "dev"
+}
