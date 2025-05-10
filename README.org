@@ -13,6 +13,8 @@ A comprehensive exploration of ARM NEON SIMD programming techniques for ARMv8-A 
 
 This project provides a hands-on approach to understanding and utilizing SIMD (Single Instruction, Multiple Data) operations through ARM's NEON technology. Built specifically for ARMv8 architecture (aarch64), it demonstrates how to leverage SIMD instructions to achieve significant performance improvements across various algorithms.
 
+The project uses a Socratic method to guide you through discovering how SIMD works on ARM architectures by asking questions and exploring implementations, rather than just presenting code examples.
+
 ** Features
 
 - Core NEON SIMD operations with performance benchmarks
@@ -20,19 +22,24 @@ This project provides a hands-on approach to understanding and utilizing SIMD (S
 - Automatic platform and feature detection
 - Comprehensive image processing implementations
 - Side-by-side comparisons of scalar vs. SIMD approaches
+- Cross-platform support (Raspberry Pi, Apple Silicon, FreeBSD, Android)
+- Interactive explorer tool for experimentation
+- Docker-based development environment for consistent testing
 
 ** Requirements
 
 - ARMv8-A architecture with NEON support (aarch64)
 - GCC or Clang compiler with ARM NEON support
 - Linux-based OS (preferably Debian/Ubuntu or Raspberry Pi OS)
+- Make for building
+- (Optional) Docker for containerized development
 
 ** Installation
 
 Clone the repository and run the prerequisite script to ensure all dependencies are installed:
 
 #+BEGIN_SRC shell
-git clone https://github.com/username/armv8-neon-explorer.git
+git clone https://github.com/aygp-dr/armv8-neon-explorer.git
 cd armv8-neon-explorer
 chmod +x prerequisites.sh
 ./prerequisites.sh
@@ -40,12 +47,31 @@ chmod +x prerequisites.sh
 
 ** Building
 
+*** Direct Building
+
 Use the provided Makefile to build the project:
 
 #+BEGIN_SRC shell
 make all        # Build everything
 make examples   # Build only the examples
 make clean      # Clean build artifacts
+make test       # Run tests
+#+END_SRC
+
+*** Using Docker
+
+For containerized development:
+
+#+BEGIN_SRC shell
+# Build the Docker container
+./container.sh build
+
+# Start a shell in the container
+./container.sh shell
+
+# Build and run within the container
+make all
+make test
 #+END_SRC
 
 ** Examples
@@ -55,6 +81,8 @@ The project includes several example programs demonstrating NEON optimizations:
 *** Vector Operations
 - Vector addition (~vector_add_example~)
 - Dot product calculation (~dot_product_example~)
+- Matrix multiplication (~matrix_multiply~)
+- FFT implementation (~fft_example~)
 
 *** Image Processing
 - RGB to grayscale conversion (~rgb_to_gray~)
@@ -75,6 +103,20 @@ Some examples accept parameters for image dimensions:
 ./bin/box_blur 1024 768  # Process a 1024x768 image
 #+END_SRC
 
+** Interactive Explorer
+
+The project includes an interactive tool for experimenting with NEON operations:
+
+#+BEGIN_SRC shell
+# Build the explorer
+make -C tools
+
+# Run the explorer
+./tools/neon_explorer
+#+END_SRC
+
+Use ~help~ command within the explorer for available operations.
+
 ** Project Structure
 
 - ~/include~ - Header files and utilities
@@ -82,6 +124,8 @@ Some examples accept parameters for image dimensions:
 - ~/examples~ - Example programs demonstrating NEON usage
 - ~/tests~ - Test suite for validating implementations
 - ~/docs~ - Additional documentation and references
+- ~/tools~ - Development and helper tools
+- ~/.emacs.d~ - Emacs configuration for the project
 
 ** Documentation
 
@@ -90,11 +134,28 @@ The project uses a literate programming approach with Org mode files:
 - ~setup.org~ - Project setup and core library implementation
 - ~image-processing.org~ - Image processing algorithms and examples
 
+Additional documentation is available in the ~docs/~ directory:
+- [[file:docs/neon_cheatsheet.md][ARM NEON Quick Reference]]
+- [[file:docs/learning_approach.md][Learning Approach]]
+- [[file:docs/performance.md][Performance Considerations]]
+- [[file:docs/learning_path.md][Learning Path]]
+- [[file:docs/socratic_approach.md][Socratic Methodology]]
+
 Each example includes:
 - Scalar (non-SIMD) implementation
 - NEON SIMD optimized version
 - Performance comparison
 - Key insights into the NEON operations used
+
+** Learning Path
+
+This project follows a Socratic approach to learning:
+
+1. Start with the basic vector operations in ~examples/vector_add_example.c~
+2. Progress to more complex operations like dot products
+3. Explore advanced image processing techniques
+4. Understand performance considerations and trade-offs
+5. Experiment with your own SIMD implementations
 
 ** Performance
 
@@ -114,3 +175,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ** Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+** Contact
+
+Aidan Pace - apace@defrecord.com

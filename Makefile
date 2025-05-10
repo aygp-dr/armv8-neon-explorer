@@ -29,7 +29,10 @@ EXAMPLE_BINS = $(patsubst $(EXAMPLES_DIR)/%.c,$(BIN_DIR)/%,$(EXAMPLE_SRCS))
 # Include platform-specific settings
 include Makefile.platforms
 
-# Default target
+# Default target - changed to help
+.DEFAULT_GOAL := help
+
+# Previous default target
 all: setup $(LIB) examples tests tools
 
 # Setup directories
@@ -90,7 +93,7 @@ clean:
 # Help target
 help:
 	@echo "ARM v8 NEON Explorer - Available targets:"
-	@echo "  all           Build everything (default)"
+	@echo "  all           Build everything"
 	@echo "  setup         Create necessary directories"
 	@echo "  examples      Build example programs"
 	@echo "  tests         Build test suite"

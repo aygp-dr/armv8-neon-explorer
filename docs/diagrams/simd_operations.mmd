@@ -1,0 +1,24 @@
+graph LR
+    subgraph "Scalar Addition (4 operations)"
+        A1["A[0]"] --> Add1("+") --> C1["C[0]"]
+        B1["B[0]"] --> Add1
+        
+        A2["A[1]"] --> Add2("+") --> C2["C[1]"]
+        B2["B[1]"] --> Add2
+        
+        A3["A[2]"] --> Add3("+") --> C3["C[2]"]
+        B3["B[2]"] --> Add3
+        
+        A4["A[3]"] --> Add4("+") --> C4["C[3]"]
+        B4["B[3]"] --> Add4
+    end
+    
+    subgraph "SIMD Addition (1 operation)"
+        VA["A[0:3]"] --> VAdd("+") --> VC["C[0:3]"]
+        VB["B[0:3]"] --> VAdd
+    end
+    
+    style VAdd fill:#f96,stroke:#333,stroke-width:2px
+    style VA fill:#d1e7dd,stroke:#333,stroke-width:1px
+    style VB fill:#d1e7dd,stroke:#333,stroke-width:1px
+    style VC fill:#d1e7dd,stroke:#333,stroke-width:1px

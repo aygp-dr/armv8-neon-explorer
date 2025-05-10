@@ -1,0 +1,29 @@
+graph TD
+    subgraph "Array of Structures (AoS)"
+        direction LR
+        A1["Struct 1 { X, Y, Z, W }"] --> A2["Struct 2 { X, Y, Z, W }"] --> A3["..."] --> A4["Struct N { X, Y, Z, W }"]
+    end
+    
+    subgraph "Structure of Arrays (SoA)"
+        direction LR
+        X["X: { X₁, X₂, X₃, ..., Xₙ }"]
+        Y["Y: { Y₁, Y₂, Y₃, ..., Yₙ }"]
+        Z["Z: { Z₁, Z₂, Z₃, ..., Zₙ }"]
+        W["W: { W₁, W₂, W₃, ..., Wₙ }"]
+    end
+    
+    subgraph "SIMD Loading"
+        AosLoad["SIMD Load in AoS"]
+        SoaLoad["SIMD Load in SoA"]
+    end
+    
+    A1 --> AosLoad
+    X --> SoaLoad
+    
+    classDef struct fill:#dae8fc,stroke:#333,stroke-width:1px;
+    classDef array fill:#d1e7dd,stroke:#333,stroke-width:1px;
+    classDef load fill:#f96,stroke:#333,stroke-width:2px;
+    
+    class A1,A2,A3,A4 struct;
+    class X,Y,Z,W array;
+    class AosLoad,SoaLoad load;

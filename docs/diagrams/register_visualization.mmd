@@ -1,0 +1,29 @@
+graph TD
+    subgraph "128-bit NEON Vector Register"
+        R["V0-V31 (128-bit)"]
+    end
+    
+    subgraph "8-bit Element View (16 elements)"
+        B0["Byte 0"] --- B1["Byte 1"] --- B2["..."] --- B15["Byte 15"]
+    end
+    
+    subgraph "16-bit Element View (8 elements)"
+        H0["Half 0"] --- H1["Half 1"] --- H2["..."] --- H7["Half 7"]
+    end
+    
+    subgraph "32-bit Element View (4 elements)"
+        S0["Single 0"] --- S1["Single 1"] --- S2["Single 2"] --- S3["Single 3"]
+    end
+    
+    subgraph "64-bit Element View (2 elements)"
+        D0["Double 0"] --- D1["Double 1"]
+    end
+    
+    R --> B0
+    R --> H0
+    R --> S0
+    R --> D0
+    
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    classDef register fill:#d1e7dd,stroke:#333,stroke-width:2px;
+    class R register;
